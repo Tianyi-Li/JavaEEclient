@@ -1,18 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VendorHomeComponent } from './vendor/vendor-home.component';
+import { MatComponentsModule } from './mat-components/mat-components.module';
+import { VendorModule } from './vendor/vendor.module';
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule
+    VendorModule,
+    HttpClientModule,
+    MatComponentsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [VendorHomeComponent]
 })
-export class AppModule { }
+export class AppModule {}

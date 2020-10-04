@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <span>INFO 5059 - Case Study</span>
+</mat-toolbar>
+<mat-card>
+  <mat-card-header class="logo" style="width: 200px; margin: 0 auto;">
+    <img src="assets/images/vendor.png" width="60" height="40" alt="Logo"/>
+    <span class ="my-primary-text" style="margin-top: 2vh; font-weight: bold; margin-left: 1vh;"> - vendors</span>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list flex>
+      <app-vendor-list [vendors]="vendors">
+      </app-vendor-list>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<div style="margin-top: 1vh; float:right" class="my-primary-text">{{ msg }}</div>
