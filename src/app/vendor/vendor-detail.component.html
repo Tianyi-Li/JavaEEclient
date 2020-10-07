@@ -1,0 +1,58 @@
+<form [formGroup]="vendorForm" (ngSubmit)="updateSelectedVendor()">
+  <div layout="row">
+    <mat-form-field>
+      <input matInput placeholder="Name" type="text" maxlength="20" required formControlName="name" autofocus>
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <input matInput placeholder="Email" type="email" required formControlName="email">
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <input matInput placeholder="Phone #" type="text" required formControlName="phone">
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <input matInput placeholder="Street Address" type="text" required formControlName="address1">
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <input matInput placeholder="City" type="text" required formControlName="city">
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-select matInput placeholder="Province" formControlName="province" flex>
+        <mat-option value="On">Ontario</mat-option>
+        <mat-option value="Qu">Quebec</mat-option>
+        <mat-option value="Ab">Alberta</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <input matInput placeholder="Postal Code" type="text" required formControlName="postalcode">
+    </mat-form-field>
+  </div>
+  <div layout="row">
+    <mat-form-field>
+      <mat-select matInput placeholder="Vendor type" formControlName="type" flex>
+        <mat-option value="Trusted">Trusted</mat-option>
+        <mat-option value="Untrusted">Untrusted</mat-option>
+        <mat-option value="Unknown">Unknown</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="mat-pad-sm">
+<span>
+<button mat-raised-button type="submit">Save</button>
+</span>
+    <span>
+<button mat-raised-button type="button" (click)="cancelled.emit(selectedVendor)">Cancel</button>
+</span>
+  </div>
+</form>
