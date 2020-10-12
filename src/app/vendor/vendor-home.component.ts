@@ -20,7 +20,7 @@ export class VendorHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.msg = `Vendor's loaded`;
-    this.vendors$ = this.vendorService.load().pipe(
+    this.vendors$ = this.vendorService.getAll().pipe(
       share(),
       catchError(error => {
         if (error.error instanceof ErrorEvent) {
