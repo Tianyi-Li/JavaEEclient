@@ -16,33 +16,44 @@
 <!--<div style="margin-top: 1vh; float:right" class="my-primary-text">{{ msg }}</div>-->
 
 <mat-toolbar color="primary">
-  <span>Vendors with Async Pipes</span>
+  <span>Vendors</span>
 </mat-toolbar>
 <mat-card *ngIf="hideEditForm">
-  <mat-card-header *ngIf="vendors$ | async; else loading" class="logo" style="width: 200px; margin: 0 auto;">
+  <mat-card-header *ngIf="vendors$ | async; else loading" >
 <!--    <mat-card-title class="logo" style="width: 200px; margin: 0 auto;">-->
-      <img src="assets/images/vendor.png" width="60" height="40" alt="Logo"/>
-      <span class ="my-primary-text" style="margin-top: 2vh; font-weight: bold; margin-left: 1vh;"> - vendors</span>
+    <img src="assets/images/vendor.png" width="60" height="40" alt="Logo" style="margin: 0 auto;"/>
+<!--      <span class ="my-primary-text" style="margin-top: 2vh; font-weight: bold; margin-left: 1vh;"> - vendors</span>-->
 <!--    </mat-card-title>-->
   </mat-card-header>
   <mat-card-content>
     <mat-list>
-      <app-vendor-list [vendors]="vendors$ | async" (selected)="select($event)"></app-vendor-list>
+      <app-vendor-list [vendors]="vendors$ | async" (selected)="select($event)">
+      </app-vendor-list>
     </mat-list>
+    <div class="padtop15">
+      <mat-icon (click)="newVendor()" matTooltip="Add New Vendor" class="addicon" color="primary" >
+        control_point
+      </mat-icon>
+    </div>
   </mat-card-content>
+
 </mat-card>
 <mat-card *ngIf="!hideEditForm">
   <mat-card-header>
-    <mat-card-title>
-      <span class="my-primary-text">{{ msg }}</span>
-    </mat-card-title>
+<!--    <mat-card-title>-->
+<!--      <span class="my-primary-text">{{ msg }}</span>-->
+      <img src="assets/images/vendor.png" width="60" height="40" alt="Logo" style="margin: 0 auto;"/>
+<!--    </mat-card-title>-->
   </mat-card-header>
   <mat-card-content>
     <app-vendor-detail [selectedVendor]="vendor"
                          (cancelled)="cancel('cancelled')"
-                         (saved)="update($event)">
+                         (saved)="save($event)"
+                         (deleted)="delete($event)">
     </app-vendor-detail>
   </mat-card-content>
   <ng-template #loading class="my-primary-text">Loading Vendors from server...</ng-template>
 </mat-card>
-<div style="margin-top: 1vh; float:right" class="my-primary-text">{{ msg }}</div>
+<div style="margin-top: 5%; padding-bottom: 5%; float:right; font-size: large; font-weight: bold;" class="my-accent-text">{{ msg }}</div>
+
+

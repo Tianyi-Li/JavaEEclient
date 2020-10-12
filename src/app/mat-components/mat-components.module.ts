@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import { MatTooltipModule} from '@angular/material/tooltip';
 
 const MaterialComponents = [MatButtonModule,
   MatCardModule,
@@ -18,7 +19,8 @@ const MaterialComponents = [MatButtonModule,
   MatInputModule,
   MatListModule,
   MatToolbarModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTooltipModule
 ];
 @NgModule({
   imports: [MatButtonModule,
@@ -29,7 +31,8 @@ const MaterialComponents = [MatButtonModule,
     MatInputModule,
     MatListModule,
     MatToolbarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule
   ],
   exports: [MatButtonModule,
     MatCardModule,
@@ -39,7 +42,8 @@ const MaterialComponents = [MatButtonModule,
     MatIconModule,
     MatListModule,
     MatToolbarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule
   ]
 })
 export class MatComponentsModule { }

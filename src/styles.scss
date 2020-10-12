@@ -24,3 +24,13 @@ mat-list-item:nth-child(odd){
 mat-list-item:nth-child(even) {
   background-color:#eeeeee;
 }
+
+.padtop15 {
+  padding-top: 25%;
+}
+.material-icons.addicon {
+  font-size: 10vw;
+  position:absolute;
+  bottom:4vh;
+  left:4vw;
+}

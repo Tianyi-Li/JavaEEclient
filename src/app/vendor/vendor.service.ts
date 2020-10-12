@@ -27,4 +27,19 @@ export class VendorService {
   update(vendor: Vendor): Observable<Vendor> {
     return this.http.put<Vendor>(`${this.resourceURL}`, vendor);
   } // update
+
+  /**
+   * add an vendor on the server using http post
+   */
+  add(vendor: Vendor): Observable<Vendor> {
+    vendor.id = 0;
+    return this.http.post<Vendor>(this.resourceURL, vendor);
+  } // add
+
+  /**
+   * delete an vendor on the server, using get for custom url not delete
+   */
+  delete(id): Observable<number> {
+    return this.http.delete<number>(`${this.resourceURL}/${id}`);
+  } // delete
 }

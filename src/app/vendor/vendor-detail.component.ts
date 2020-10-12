@@ -8,6 +8,7 @@ import { Vendor } from './vendor';
 export class VendorDetailComponent implements OnInit {
   @Input() selectedVendor: Vendor;
   @Output() cancelled = new EventEmitter();
+  @Output() deleted = new EventEmitter();
   @Output() saved = new EventEmitter();
   vendorForm: FormGroup;
   name: FormControl;
