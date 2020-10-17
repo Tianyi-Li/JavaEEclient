@@ -31,8 +31,33 @@ mat-list-item:nth-child(even) {
 .material-icons.addicon {
   font-size: 10vw;
   position:absolute;
-  bottom:4vh;
+  bottom:6vh;
   left:4vw;
 }
 
 mat-form-field { margin-left: 5%;width:90%; }
+
+table {
+  width: 100%;
+}
+.center-header{
+  flex-direction: column;
+  justify-content: center;
+  font-weight: bolder;
+  margin-left:25px;
+}
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+}
+.mat-row:nth-child(odd){
+  background-color:#eeeeee;
+  text-align: center;
+}
+.mat-row.ng-star-inserted:nth-child(even) {
+  background-color: white;
+  text-align: center;
+}
+button.mat-sort-header-button {
+  margin-left: 5vw;
+}

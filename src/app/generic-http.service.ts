@@ -20,7 +20,8 @@ export class GenericHttpService<T> {
   public getAll(): Observable<T[]> {
     return this.httpClient.get<T[]>(`${this.url}`);
   } // getAll
-  public delete(id: number): Observable<number> {
+  public delete(id: string | number): Observable<number> {
     return this.httpClient.delete<number>(`${this.url}/${id}`);
   } // delete
+
 } // GenericHttpService

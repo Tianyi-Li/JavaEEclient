@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MatComponentsModule } from './mat-components/mat-components.module';
 import { VendorModule } from './vendor/vendor.module';
 import { HomeComponent } from './home/home.component';
+import { ProductModule } from './product/product.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     VendorModule,
     HttpClientModule,
-    MatComponentsModule
+    MatComponentsModule,
+    ProductModule
   ],
   bootstrap: [AppComponent],
   declarations: [AppComponent, HomeComponent]
