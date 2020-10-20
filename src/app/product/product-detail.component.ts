@@ -45,6 +45,7 @@ export class ProductDetailComponent implements OnInit {
     this.qoo = new FormControl('', Validators.compose([Validators.required]));
     // this.qrcode = new FormControl('', Validators.compose([Validators.required]));
     // this.qrcodetxt = new FormControl('', Validators.compose([Validators.required]));
+    this.qrcodetxt = new FormControl('');
   } // constructor
 
   ngOnInit(): void {
@@ -57,9 +58,9 @@ export class ProductDetailComponent implements OnInit {
       rop: this.rop,
       eoq: this.eoq,
       qoh: this.qoh,
-      qoo: this.qoo
+      qoo: this.qoo,
       // qrcode: this.qrcode,
-      // qrcodetxt: this.qrcodetxt
+      qrcodetxt: this.qrcodetxt
     });
 
 // patchValue doesn't care if all values are present
@@ -72,9 +73,9 @@ export class ProductDetailComponent implements OnInit {
       rop: this.selectedProduct.rop,
       eoq: this.selectedProduct.eoq,
       qoh: this.selectedProduct.qoh,
-      qoo: this.selectedProduct.qoo
+      qoo: this.selectedProduct.qoo,
       // qrcode: this.selectedProduct.qrcode,
-      // qrcodetxt: this.selectedProduct.qrcodetxt
+      qrcodetxt: this.selectedProduct.qrcodetxt
     });
   } // ngOnInit
 
@@ -89,7 +90,7 @@ export class ProductDetailComponent implements OnInit {
     this.selectedProduct.qoh = this.productForm.get('qoh').value;
     this.selectedProduct.qoo = this.productForm.get('qoo').value;
     // this.selectedProduct.qrcode = this.productForm.get('qrcode').value;
-    // this.selectedProduct.qrcodetxt = this.productForm.get('qrcodetxt').value;
+    this.selectedProduct.qrcodetxt = this.productForm.get('qrcodetxt').value;
     this.saved.emit(this.selectedProduct);
   }
 
