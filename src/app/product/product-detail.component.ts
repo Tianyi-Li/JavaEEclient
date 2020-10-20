@@ -93,14 +93,16 @@ export class ProductDetailComponent implements OnInit {
     this.saved.emit(this.selectedProduct);
   }
 
-  // tslint:disable-next-line:typedef
-  uniqueCodeValidator(control) {
+
+  uniqueCodeValidator(control): { idExists: boolean} {
     /**
      * uniqueCodeValidator - needed access to products property so not
      * with the rest of the validators
      */
     if (this.products) {
-      return this.products.find(p => p.id === control.value && !this.selectedProduct.id) ? {idExists: true} : null;
+      return this.products.find(p => p.id === control.value && !this.selectedProduct.id)
+        ? {idExists: true}
+        : null;
     } // uniqueCodeValidator
   }
 
