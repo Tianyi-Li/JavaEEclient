@@ -8,6 +8,7 @@ import { MatComponentsModule } from './mat-components/mat-components.module';
 import { VendorModule } from './vendor/vendor.module';
 import { HomeComponent } from './home/home.component';
 import { ProductModule } from './product/product.module';
+import { PoModule } from './po/po.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,10 @@ import { ProductModule } from './product/product.module';
     VendorModule,
     HttpClientModule,
     MatComponentsModule,
-    ProductModule
+    ProductModule,
+    PoModule
+    // RouterModule,
+    // routing
   ],
   bootstrap: [AppComponent],
   declarations: [AppComponent, HomeComponent]
