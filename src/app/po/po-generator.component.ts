@@ -6,7 +6,7 @@ import { Vendor } from '../vendor/vendor';
 import { Product } from '../product/product';
 import { POLineItem } from './po-lineitem';
 import { PO } from './po';
-import { BASEURL } from '../constants';
+import { BASEURL, PDFURL } from '../constants';
 import { VendorService } from '../vendor/vendor.service';
 import { ProductService } from '../product/product.service';
 import { POService } from './po.service';
@@ -31,16 +31,15 @@ export class POGeneratorComponent implements OnInit, OnDestroy {
   selectedVendor: Vendor; // the current selected vendor
   pickedProduct: boolean;
   pickedVendor: boolean;
-  showVendor: boolean;
+  showVendor: boolean; // the vendor will be hidden when Purchase order added
   generated: boolean;
   hasProducts: boolean;
   msg: string;
-  total: number;
   url: string;
-  producteoq: number;
-  selectedQty: number;
+  total: number;
   sub: number;
   tax: number;
+  pono: number;
 
   constructor(private builder: FormBuilder,
               private vendorService: VendorService,
@@ -121,41 +120,42 @@ export class POGeneratorComponent implements OnInit, OnDestroy {
     const xSubscr = this.generatorForm.get('productid').valueChanges.subscribe(val => {
       this.selectedProduct = val;
       this.pickedProduct = true;
-      this.loadProductEoq();
+      // this.loadProductEoq();
       this.generatorForm.patchValue({productqty: 'eoq'}); // set eoq to the default qty
     });
     this.subscription.add(xSubscr); // add it as a child, so all can be destroyed together
   } // onPickProduct
 
+  pickZeroQty(): void{
+    const indexPO = this.items.findIndex(it => it.productid === this.selectedProduct.id);
+    this.items.splice(indexPO, 1); // delete the product line item
+    const indexP = this.selectedproducts.findIndex(it => it.id === this.selectedProduct.id);
+    this.selectedproducts.splice(indexP, 1); // delete the product
+    this.msg = `All ${this.selectedProduct.name} removed`;
+
+    if (this.items.length === 0) {
+      this.hasProducts = false;
+      this.msg = `All items were deleted!`;
+    }
+  }
 
   onPickVendorProduct(): void {
-
     const xSubscr = this.generatorForm.get('productqty').valueChanges.subscribe(val => {
+      // check if val is eoq or other number
       if (val === 'eoq') {
         val = this.selectedProduct.eoq;
       }
-      this.selectedQty = val;
 
-      if (!(this.items.find(it => it.productid === this.selectedProduct.id)) && val === 0) {
-        return;
-      }
+      const findItem = this.items.find(it => it.productid === this.selectedProduct.id);
       const item: POLineItem = {id: 0, poid: 0, productid: this.selectedProduct.id, qty: val, price: this.selectedProduct.costprice };
-      if (this.items.find(it => it.productid === this.selectedProduct.id) &&
-        ((this.items.find(it => it.productid === this.selectedProduct.id).qty) === val))  { // ignore entry
+
+      if (findItem && ((findItem.qty) === val))  { // ignore entry if user choose the same qty again
       }
-      else if (this.items.find(it => it.productid === this.selectedProduct.id) &&  (val === 0)) {
-        const index = this.items.findIndex(it => it.productid === this.selectedProduct.id);
-        this.items.splice(index, 1);
-        const index2 = this.selectedproducts.findIndex(it => it.id === this.selectedProduct.id);
-        this.selectedproducts.splice(index2, 1);
-        this.msg = `All ${this.selectedProduct.name} removed`;
-        if (this.items.length === 0) {
-          this.hasProducts = false;
-          this.msg = `All items were deleted!`;
-        }
+      else if (findItem &&  (val === 0)) {
+        this.pickZeroQty();
       }
-      else if (this.items.find(it => it.productid === this.selectedProduct.id) &&
-        (!((this.items.find(it => it.productid === this.selectedProduct.id).qty) === val))) {
+      else if (findItem && findItem.qty !== val)  // different qty
+      {
         const foundIndex = this.items.findIndex(it => it.productid === this.selectedProduct.id);
         this.items[foundIndex].qty = val;
         this.msg = `${item.qty} ${this.selectedProduct.name}(s) Added`;
@@ -174,9 +174,6 @@ export class POGeneratorComponent implements OnInit, OnDestroy {
       this.items.forEach(pro => this.sub += pro.qty * pro.price);
       this.tax = this.sub * 0.13;
       this.total = this.sub * 1.13;
-      // this.selectedproducts.forEach(pro => this.total += this.selectedQty * pro.costprice);
-
-      //  this.sub = this.selectedProducts.forEach()
     });
     this.subscription.add(xSubscr); // add it as a child, so all can be destroyed together
   }
@@ -192,9 +189,7 @@ export class POGeneratorComponent implements OnInit, OnDestroy {
       )
     );
   } // loadVendorProducts
-  loadProductEoq(): void {
-    this.producteoq = this.selectedProduct.eoq;
-  }
+
   /**
    * createPO - create the client side po
    */
@@ -204,9 +199,13 @@ export class POGeneratorComponent implements OnInit, OnDestroy {
 
     const rSubscr = this.poService.add(po).subscribe(
       payload => { // server should be returning new id
-        typeof payload === 'number'
-          ? this.msg = `PO ${payload} added!`
-          : this.msg = 'PO not added! - server error';
+        if (typeof payload === 'number') {
+          this.msg = `Purchase Order ${payload} added!`;
+          this.pono = payload;
+          this.generated = true;
+        } else {
+          this.msg = 'Purchase Order not added! - server error';
+        }
         this.hasProducts = false;
         this.pickedVendor = false;
         this.pickedProduct = false;
@@ -217,5 +216,9 @@ export class POGeneratorComponent implements OnInit, OnDestroy {
       });
     this.subscription.add(rSubscr); // add it as a child, so all can be destroyed together
   } // createPO
+
+  viewPdf(): void {
+    window.open(PDFURL + this.pono, '');
+  } // viewPdf
 
 } // POGeneratorComponent
