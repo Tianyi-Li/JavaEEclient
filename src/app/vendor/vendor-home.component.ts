@@ -8,6 +8,7 @@ import {catchError, map, share} from 'rxjs/operators';
   selector: 'app-casestudy',
   templateUrl: 'vendor-home.component.html'
 })
+
 export class VendorHomeComponent implements OnInit {
   vendors$: Observable<Vendor[]>;
   vendor: Vendor;
@@ -107,6 +108,7 @@ export class VendorHomeComponent implements OnInit {
           this.msg = `Error - vendor not deleted - ${err.status} - ${err.statusText}`;
         });
   } // delete
+
   /**
    * newVendor - create new vendor instance
    */
@@ -115,4 +117,5 @@ export class VendorHomeComponent implements OnInit {
     this.msg = 'New vendor';
     this.hideEditForm = !this.hideEditForm;
   } // newVendor
+
 } // VendorHomeComponent

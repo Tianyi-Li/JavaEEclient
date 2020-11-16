@@ -2,7 +2,6 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Product } from './product';
 import { Vendor } from '../vendor/vendor';
-// import { ValidateAmount } from '../validators/amount-validator';
 import { AbstractControl } from '@angular/forms';
 
 @Component({
