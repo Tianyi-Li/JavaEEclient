@@ -7,4 +7,5 @@ export interface POLineItem {
   productid: string;
   qty: number;
   price: number;
+  productName: string;
 }

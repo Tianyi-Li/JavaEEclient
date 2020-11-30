@@ -26,13 +26,13 @@ mat-list-item:nth-child(even) {
 }
 
 .padtop15 {
-  padding-top: 25%;
+  padding-top: 15%;
 }
 .material-icons.addicon {
   font-size: 10vw;
   position:absolute;
-  bottom:6vh;
-  left:4vw;
+  bottom:4vh;
+  right:6vw;
 }
 
 mat-form-field { margin-left: 5%;width:90%; }
@@ -60,4 +60,16 @@ table {
 }
 button.mat-sort-header-button {
   margin-left: 5vw;
+}
+
+.custommodal {
+  mat-dialog-container {
+    background-color: white;
+    color: mat-color($my-app-primary);
+    font-weight: bold;
+  }
+}
+#deleteNo, #deleteYes {
+  background-color: mat-color($my-app-primary);
+  color: white;
 }

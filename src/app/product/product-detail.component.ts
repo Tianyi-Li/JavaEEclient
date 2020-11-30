@@ -3,6 +3,8 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Product } from './product';
 import { Vendor } from '../vendor/vendor';
 import { AbstractControl } from '@angular/forms';
+import { DeleteDialogComponent } from '../deletedialog/delete-dialog.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-detail',
@@ -32,7 +34,7 @@ export class ProductDetailComponent implements OnInit {
 
   control: AbstractControl;
 
-  constructor(private builder: FormBuilder) {
+  constructor(private builder: FormBuilder, private dialog: MatDialog) {
     this.id = new FormControl('', Validators.compose([this.uniqueCodeValidator.bind(this), Validators.required]));
     this.vendorid = new FormControl('', Validators.compose([Validators.required]));
     this.name = new FormControl('', Validators.compose([Validators.required]));
@@ -42,9 +44,9 @@ export class ProductDetailComponent implements OnInit {
     this.eoq = new FormControl('', Validators.compose([Validators.required]));
     this.qoh = new FormControl('', Validators.compose([Validators.required]));
     this.qoo = new FormControl('', Validators.compose([Validators.required]));
-    // this.qrcode = new FormControl('', Validators.compose([Validators.required]));
-    // this.qrcodetxt = new FormControl('', Validators.compose([Validators.required]));
-    this.qrcodetxt = new FormControl('');
+    this.qrcode = new FormControl('');
+    this.qrcodetxt = new FormControl('', Validators.compose([Validators.required]));
+    // this.qrcodetxt = new FormControl('');
   } // constructor
 
   ngOnInit(): void {
@@ -58,7 +60,7 @@ export class ProductDetailComponent implements OnInit {
       eoq: this.eoq,
       qoh: this.qoh,
       qoo: this.qoo,
-      // qrcode: this.qrcode,
+      qrcode: this.qrcode,
       qrcodetxt: this.qrcodetxt
     });
 
@@ -73,7 +75,7 @@ export class ProductDetailComponent implements OnInit {
       eoq: this.selectedProduct.eoq,
       qoh: this.selectedProduct.qoh,
       qoo: this.selectedProduct.qoo,
-      // qrcode: this.selectedProduct.qrcode,
+      qrcode: this.selectedProduct.qrcode,
       qrcodetxt: this.selectedProduct.qrcodetxt
     });
   } // ngOnInit
@@ -88,7 +90,7 @@ export class ProductDetailComponent implements OnInit {
     this.selectedProduct.eoq = this.productForm.get('eoq').value;
     this.selectedProduct.qoh = this.productForm.get('qoh').value;
     this.selectedProduct.qoo = this.productForm.get('qoo').value;
-    // this.selectedProduct.qrcode = this.productForm.get('qrcode').value;
+    this.selectedProduct.qrcode = this.productForm.get('qrcode').value;
     this.selectedProduct.qrcodetxt = this.productForm.get('qrcodetxt').value;
     this.saved.emit(this.selectedProduct);
   }
@@ -105,5 +107,22 @@ export class ProductDetailComponent implements OnInit {
         : null;
     } // uniqueCodeValidator
   }
+
+  openDeleteModal(selectedProduct: Product): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      title: `Delete Product ${this.selectedProduct.id}`,
+      entityname: 'product'
+    };
+    dialogConfig.panelClass = 'custommodal';
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleted.emit(this.selectedProduct);
+      }
+    });
+  } // openDeleteModal
 
 } // ProductDetailComponent

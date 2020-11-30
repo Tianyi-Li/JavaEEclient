@@ -89,6 +89,24 @@
         </mat-form-field>
       </div>
     </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header class="my-primary-text">
+        <mat-panel-title>
+          QRCode Information
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div layout="row">
+        <mat-form-field flex>
+          <input matInput placeholder="QRCode Text" type="text" formControlName="qrcodetxt">
+          <mat-error *ngIf="qrcodetxt.errors && (qrcodetxt.dirty || qrcodetxt.touched)" align="end">QRCode Text is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div layout="row" *ngIf="selectedProduct.qrcode">
+       QR CODE: <br />
+          <img style="display:block;" [src]="'data:image/png;base64,' + selectedProduct.qrcode"/>
+      </div>
+    </mat-expansion-panel>
   </mat-accordion>
   <br/>
   <div class="mat-pad-sm">
@@ -98,7 +116,7 @@
 </span>
     <span>
 <button *ngIf="selectedProduct.id" mat-raised-button type="button"
-        (click)="deleted.emit(selectedProduct)">Delete</button>
+        (click)="openDeleteModal(selectedProduct)">Delete</button>
 </span>
     <span>
 <button mat-raised-button type="button" (click)="cancelled.emit(selectedProduct)">Cancel</button>

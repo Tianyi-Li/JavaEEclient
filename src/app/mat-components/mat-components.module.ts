@@ -12,8 +12,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule} from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const MaterialComponents = [MatButtonModule,
   MatCardModule,
@@ -27,7 +29,9 @@ const MaterialComponents = [MatButtonModule,
   MatToolbarModule,
   MatSelectModule,
   MatTooltipModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatDialogModule,
+  MatPaginatorModule
 ];
 @NgModule({
   imports: [MatButtonModule,
@@ -42,7 +46,9 @@ const MaterialComponents = [MatButtonModule,
     MatToolbarModule,
     MatSelectModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule,
+    MatPaginatorModule
   ],
   exports: [MatButtonModule,
     MatCardModule,
@@ -56,7 +62,9 @@ const MaterialComponents = [MatButtonModule,
     MatToolbarModule,
     MatSelectModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule,
+    MatPaginatorModule
   ]
 })
 export class MatComponentsModule { }

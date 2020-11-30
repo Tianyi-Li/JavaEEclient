@@ -4,14 +4,16 @@ import { ProductHomeComponent } from './product-home.component';
 import { ProductDetailComponent } from './product-detail.component';
 import { MatComponentsModule } from '../mat-components/mat-components.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DeleteDialogComponent} from '../deletedialog/delete-dialog.component';
 
 
 @NgModule({
-  declarations: [ProductHomeComponent, ProductDetailComponent],
+  declarations: [ProductHomeComponent, ProductDetailComponent, DeleteDialogComponent],
+  entryComponents: [DeleteDialogComponent],
   imports: [
     CommonModule,
     MatComponentsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class ProductModule { }

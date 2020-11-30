@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <span>Products</span>
 </mat-toolbar>
-<mat-card *ngIf="hideEditForm" style="margin-bottom: 10vh;">
+<mat-card *ngIf="hideEditForm" style="margin-bottom: 0.5vh;">
   <mat-card-header layout="row">
     <mat-card-title style="margin-bottom: 4vh;">
       <img src="assets/images/vendor.png" width="60" height="40" alt="Logo" style="display: block; width: 20%;margin: 0 auto;" />
@@ -34,8 +34,11 @@
       </mat-icon>
     </div>
   </mat-card-content>
-  <div style="margin-top: 3vh; float:right; font-size: large; font-weight: bold;" class="my-accent-text">{{ msg }}</div>
+
+
 </mat-card>
+<mat-paginator [length]=size [pageSize]=5></mat-paginator>
+<div style="margin-top: 3vh; float:right; font-size: large; font-weight: bold;" class="my-accent-text">{{ msg }}</div>
 <mat-card *ngIf="!hideEditForm">
   <mat-card-header layout="row">
     <mat-card-title><span>{{ msg }}</span></mat-card-title>
@@ -49,5 +52,6 @@
                         (deleted)="delete($event)">
     </app-product-detail>
   </mat-card-content>
+
 </mat-card>
 

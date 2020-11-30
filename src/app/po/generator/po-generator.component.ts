@@ -2,14 +2,14 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import { Observable, of, Subscription} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Vendor } from '../vendor/vendor';
-import { Product } from '../product/product';
-import { POLineItem } from './po-lineitem';
-import { PO } from './po';
-import { BASEURL, PDFURL } from '../constants';
-import { VendorService } from '../vendor/vendor.service';
-import { ProductService } from '../product/product.service';
-import { POService } from './po.service';
+import { Vendor } from '../../vendor/vendor';
+import { Product } from '../../product/product';
+import { POLineItem } from '../po-lineitem';
+import { PO } from '../po';
+import { BASEURL, PDFURL } from '../../constants';
+import { VendorService } from '../../vendor/vendor.service';
+import { ProductService } from '../../product/product.service';
+import { POService } from '../po.service';
 
 @Component({
   templateUrl: './po-generator.component.html'
@@ -147,7 +147,8 @@ export class POGeneratorComponent implements OnInit, OnDestroy {
       }
 
       const findItem = this.items.find(it => it.productid === this.selectedProduct.id);
-      const item: POLineItem = {id: 0, poid: 0, productid: this.selectedProduct.id, qty: val, price: this.selectedProduct.costprice };
+      const item: POLineItem = {id: 0, poid: 0,
+        productid: this.selectedProduct.id, qty: val, price: this.selectedProduct.costprice, productName: '' };
 
       if (findItem && ((findItem.qty) === val))  { // ignore entry if user choose the same qty again
       }
@@ -195,7 +196,7 @@ export class POGeneratorComponent implements OnInit, OnDestroy {
    */
   createPO(): void {
     this.generated = false;
-    const po: PO = {id: 0, items: this.items, vendorid: this.selectedProduct.vendorid, amount: this.total};
+    const po: PO = {id: 0, items: this.items, vendorid: this.selectedProduct.vendorid, amount: this.total, podate: null};
 
     const rSubscr = this.poService.add(po).subscribe(
       payload => { // server should be returning new id

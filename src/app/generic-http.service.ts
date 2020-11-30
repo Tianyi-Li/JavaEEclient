@@ -7,21 +7,30 @@ import { Observable } from 'rxjs';
 })
 
 export class GenericHttpService<T> {
+
   constructor(
     private httpClient: HttpClient,
     private url: string,
   ) {}
+
   public add(item: T): Observable<T> {
     return this.httpClient.post<T>(`${this.url}`, item);
   } // add
+
   public update(item: T): Observable<T> {
     return this.httpClient.put<T>(`${this.url}`, item);
   } // update
+
   public getAll(): Observable<T[]> {
     return this.httpClient.get<T[]>(`${this.url}`);
   } // getAll
+
   public delete(id: string | number): Observable<number> {
     return this.httpClient.delete<number>(`${this.url}/${id}`);
   } // delete
+
+  public getById(id: number): Observable<T[]> {
+    return this.httpClient.get<T[]>(`${this.url}/${id}`);
+  } // getById
 
 } // GenericHttpService

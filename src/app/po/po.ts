@@ -7,4 +7,5 @@ export interface PO {
   vendorid: number;
   amount: number;
   items: POLineItem[];
+  podate: Date;
 }
